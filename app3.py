@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+streamlit==1.23.0
+pandas==2.0.3
+matplotlib==3.7.1
+openpyxl==3.1.2
 
 # Função para carregar e ajustar os dados
 def carregar_dados():
