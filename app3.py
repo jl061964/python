@@ -2,10 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-pandas==2.0.3
-matplotlib==3.7.1
-openpyxl==3.1.2
-
 # Função para carregar e ajustar os dados
 def carregar_dados():
     # Defina o caminho do OneDrive
