@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import gdown
+import os
 
 # Função para baixar o arquivo do Google Drive
 def baixar_arquivo_google_drive(url, caminho_local):
@@ -17,6 +18,11 @@ def carregar_dados():
     # Baixe os arquivos
     baixar_arquivo_google_drive(url_clientes, caminho_clientes)
     baixar_arquivo_google_drive(url_vendas, caminho_vendas)
+
+    # Verifique se os arquivos foram baixados corretamente
+    if not os.path.exists(caminho_clientes) or not os.path.exists(caminho_vendas):
+        st.error("Erro ao baixar os arquivos. Verifique os URLs e tente novamente.")
+        return None, None
 
     # Carregue os arquivos usando o caminho completo
     clientes_df = pd.read_excel(caminho_clientes, engine='openpyxl')
@@ -47,10 +53,12 @@ def main():
 
     # Carregar os dados
     clientes_df, vendas_credito_df = carregar_dados()
+    if clientes_df is None or vendas_credito_df is None:
+        return
 
     # Exibe a lista suspensa com as opções de cliente + fantasia
     opcoes = clientes_df["Cliente_Fantasia"].unique().tolist()
-    escolha = st.sidebar.selectbox("Escolha um Cliente_Fantasia:", ["Selecione um cliente"] + opcoes)
+    escolha = st.sidebar.selectbox("Escolha um Cliente_Fantasia:", ["Selecione um cliente"] + opcoes, key='selectbox_cliente_fantasia')
 
     if escolha == "Selecione um cliente":
         st.warning("Por favor, selecione um cliente.")
@@ -64,7 +72,7 @@ def main():
         clientes_filtrados[coluna] = pd.to_datetime(clientes_filtrados[coluna], errors='coerce')
 
     # Filtra os dados de vendas a crédito para o cliente selecionado
-    cliente_nome = clientes_filtrados["Cliente "].iloc[0]
+    cliente_nome = clientes_filtrados["Cliente "].iloc
     vendas_cliente = vendas_credito_df[vendas_credito_df["Cliente1"] == cliente_nome].copy()
 
     # Converte as colunas de data em vendas a crédito
@@ -159,7 +167,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 
