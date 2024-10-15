@@ -9,9 +9,9 @@ def baixar_arquivo_google_drive(url, caminho_local):
 
 def carregar_dados():
     # Defina o URL do Google Drive e o caminho local
-    url_clientes = 'https://drive.google.com/uc?id=1ORP2ZOe87xls5FfEVWJAlvzeioLoCtht&export=download'
+    url_clientes = 'https://drive.google.com/uc?id=1DQ5iUlFFIKcz2GAQ6Loh_4HwmCqQOqnc&export=download'
     caminho_clientes = 'estatistica_clientes.xlsx'
-    url_vendas = 'https://drive.google.com/uc?id=1PgBPIYtEKZafTzEqCw5fjUvyU4YoR-Se&export=download'
+    url_vendas = 'https://drive.google.com/uc?id=10bwwNx8r8MzqJI5BtYSnfKpcLH4yglev&export=download'
     caminho_vendas = 'Vendas_Credito.xlsx'
     
     # Baixe os arquivos
@@ -24,16 +24,16 @@ def carregar_dados():
 
     # Corrigir os nomes das colunas
     clientes_df.columns = [
-        "Inativo", "Não.", "Empresa", "Cliente ", "Fantasia", "Referência", "Vencimento",
+        "Inativo", "Nro.", "Empresa", "Cliente ", "Fantasia", "Referência", "Vencimento",
         "Vl.liquido", "TD", "Nr.docto", "Dt.pagto", "Vl.pagamento", "TP", "Nr.pagamento",
         "Conta", "Dt.Emissão", "Cobrança", "Modelo", "Negociação", "Duplicata", "Razão Social",
         "CNPJ/CPF", "PDD"
     ]
 
     vendas_credito_df.columns = [
-        "Não.", "Empresa", "Cliente1", "Fantasia1", "Referência", "Vencimento1", "Vl.liquido1",
+        "Inativo","Nro.", "Empresa", "Cliente1", "Fantasia1", "Referência", "Vencimento1", "Vl.liquido1",
         "TD", "Nr.docto", "Dt.pagto", "Vl.pagamento", "TP", "Nr.pagamento", "Conta", "Dt.Emissão1",
-        "Cobrança", "Negociação", "Razão Social", "CNPJ/CPF", "PDD"
+        "Cobrança","Modelo", "Negociação","Duplicata", "Razão Social", "CNPJ/CPF", "PDD"
     ]
 
     # Cria uma nova coluna combinando "Cliente" e "Fantasia"
@@ -156,6 +156,11 @@ def main():
     )
     ax.axis("equal")  # Equal aspect ratio ensures that pie is drawn as a circle.
     st.pyplot(fig)
+
+if __name__ == "__main__":
+    main()
+
+
 
 if __name__ == "__main__":
     main()
