@@ -29,7 +29,7 @@ def download_excel_with_password(filename='sugestoes.xlsx'):
 
 # Função para limpar o arquivo de sugestões
 def clear_excel_file(filename='sugestoes.xlsx'):
-    df = pd.DataFrame(columns=['Nome', 'Cargo', 'Setor', 'Sugestão', 'Possível Melhoria', 'Custo Estimado', 'Economia Prevista'])
+    df = pd.DataFrame(columns=['Nome', 'Cargo', 'Setor', 'Sugestão', 'Possível Melhoria', 'Custo Estimado', 'Economia Prevista(se não for quantificavel, descrever beneficios para a empresa)'])
     df.to_excel(filename, index=False)
     st.write(f'Arquivo {filename} limpo com sucesso!')
 
@@ -51,7 +51,7 @@ with st.form(key='sugestao_form'):
     sugestao = st.text_area('Sugestão')
     melhoria = st.text_area('Possível Melhoria')
     custo_estimado = st.number_input('Custo Estimado', min_value=0.0, format="%.2f")
-    economia_prevista = st.text_area('Economia Prevista')  # Novo campo de texto
+    economia_prevista = st.text_area('Economia Prevista(se não for quantificavel, descrever beneficios para a empresa)')  # Novo campo de texto
     
     submit_button = st.form_submit_button(label='Enviar')
 
@@ -64,7 +64,7 @@ if submit_button:
         'Sugestão': sugestao,
         'Possível Melhoria': melhoria,
         'Custo Estimado': custo_estimado,
-        'Economia Prevista': economia_prevista  # Novo campo de texto
+        'Economia Prevista(se não for quantificavel, descrever beneficios para a empresa)': economia_prevista  # Novo campo de texto
     }
     
     st.session_state.sugestoes.append(nova_sugestao)
