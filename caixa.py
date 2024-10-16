@@ -19,7 +19,7 @@ def load_from_excel(filename='sugestoes.xlsx'):
 # Função para baixar o arquivo Excel com senha
 def download_excel_with_password(filename='sugestoes.xlsx'):
     password = st.text_input('Digite a senha para baixar o arquivo Excel', type='password')
-    if password == 'RBR2024':  # Substitua 'sua_senha_segura' pela senha desejada
+    if password == 'RBR2024':  # Senha definida como "RBR2024"
         with open(filename, 'rb') as f:
             st.download_button('Baixar arquivo Excel', f, file_name=filename)
         return True
