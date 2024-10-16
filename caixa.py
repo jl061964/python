@@ -34,7 +34,7 @@ def clear_excel_file(filename='sugestoes.xlsx'):
     st.write(f'Arquivo {filename} limpo com sucesso!')
 
 # Aplicativo Streamlit
-st.title('Sistema de Sugestões')
+st.title('Sistema de Sugestões - RODENSTOCK')
 
 # Carrega sugestões existentes do arquivo Excel
 sugestoes = load_from_excel()
