@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
+import os
 
 # Função para salvar dados em um arquivo Excel
 def save_to_excel(data, filename='sugestoes.xlsx'):
     df = pd.DataFrame(data)
     df.to_excel(filename, index=False)
+    st.write(f'Arquivo {filename} salvo com sucesso no diretório: {os.getcwd()}')
 
 # Função para carregar dados de um arquivo Excel
 def load_from_excel(filename='sugestoes.xlsx'):
@@ -46,16 +48,8 @@ if submit_button:
         'Custo Estimado': custo_estimado
     }
     
-    # Adiciona nova sugestão ao estado da sessão
     st.session_state.sugestoes.append(nova_sugestao)
     
-    # Salva sugestões no arquivo Excel
     save_to_excel(st.session_state.sugestoes)
     
     st.success('Sugestão enviada com sucesso!')
-
-# Exibe sugestões existentes (opcional)
-if st.session_state.sugestoes:
-    st.subheader('Sugestões Recebidas')
-    for sugestao in st.session_state.sugestoes:
-        st.write(sugestao)
