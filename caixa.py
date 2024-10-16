@@ -24,40 +24,47 @@ def download_excel(filename='sugestoes.xlsx'):
 # Aplicativo Streamlit
 st.title('Sistema de Sugestões')
 
-# Carrega sugestões existentes do arquivo Excel
-sugestoes = load_from_excel()
+# Solicita senha para acessar o arquivo Excel
+password = st.text_input('Digite a senha para acessar o arquivo Excel', type='password')
 
-# Inicializa o estado da sessão com as sugestões carregadas
-if 'sugestoes' not in st.session_state:
-    st.session_state.sugestoes = sugestoes
+# Verifica a senha
+if password == 'sua_senha_segura':  # Substitua 'sua_senha_segura' pela senha desejada
+    # Carrega sugestões existentes do arquivo Excel
+    sugestoes = load_from_excel()
 
-# Formulário para coletar dados do usuário
-with st.form(key='sugestao_form'):
-    nome = st.text_input('Nome')
-    cargo = st.text_input('Cargo')
-    setor = st.text_input('Setor')
-    sugestao = st.text_area('Sugestão')
-    melhoria = st.text_area('Possível Melhoria')
-    custo_estimado = st.number_input('Custo Estimado', min_value=0.0, format="%.2f")
-    
-    submit_button = st.form_submit_button(label='Enviar')
+    # Inicializa o estado da sessão com as sugestões carregadas
+    if 'sugestoes' not in st.session_state:
+        st.session_state.sugestoes = sugestoes
 
-# Lida com o envio do formulário
-if submit_button:
-    nova_sugestao = {
-        'Nome': nome,
-        'Cargo': cargo,
-        'Setor': setor,
-        'Sugestão': sugestao,
-        'Possível Melhoria': melhoria,
-        'Custo Estimado': custo_estimado
-    }
-    
-    st.session_state.sugestoes.append(nova_sugestao)
-    
-    save_to_excel(st.session_state.sugestoes)
-    
-    st.success('Sugestão enviada com sucesso!')
+    # Formulário para coletar dados do usuário
+    with st.form(key='sugestao_form'):
+        nome = st.text_input('Nome')
+        cargo = st.text_input('Cargo')
+        setor = st.text_input('Setor')
+        sugestao = st.text_area('Sugestão')
+        melhoria = st.text_area('Possível Melhoria')
+        custo_estimado = st.number_input('Custo Estimado', min_value=0.0, format="%.2f")
+        
+        submit_button = st.form_submit_button(label='Enviar')
 
-# Adiciona botão para baixar o arquivo Excel
-download_excel()
+    # Lida com o envio do formulário
+    if submit_button:
+        nova_sugestao = {
+            'Nome': nome,
+            'Cargo': cargo,
+            'Setor': setor,
+            'Sugestão': sugestao,
+            'Possível Melhoria': melhoria,
+            'Custo Estimado': custo_estimado
+        }
+        
+        st.session_state.sugestoes.append(nova_sugestao)
+        
+        save_to_excel(st.session_state.sugestoes)
+        
+        st.success('Sugestão enviada com sucesso!')
+
+    # Adiciona botão para baixar o arquivo Excel
+    download_excel()
+else:
+    st.error('Senha incorreta. Por favor, tente novamente.')
