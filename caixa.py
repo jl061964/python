@@ -59,11 +59,5 @@ if submit_button:
     
     st.success('Sugestão enviada com sucesso!')
 
-# Exibe sugestões existentes (opcional)
-if st.session_state.sugestoes:
-    st.subheader('Sugestões Recebidas')
-    for sugestao in st.session_state.sugestoes:
-        st.write(sugestao)
-
 # Adiciona botão para baixar o arquivo Excel
 download_excel()
