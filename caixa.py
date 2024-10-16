@@ -22,8 +22,10 @@ def download_excel_with_password(filename='sugestoes.xlsx'):
     if password == 'sua_senha_segura':  # Substitua 'sua_senha_segura' pela senha desejada
         with open(filename, 'rb') as f:
             st.download_button('Baixar arquivo Excel', f, file_name=filename)
+        return True
     elif password:
         st.error('Senha incorreta. Por favor, tente novamente.')
+    return False
 
 # Função para limpar o arquivo de sugestões
 def clear_excel_file(filename='sugestoes.xlsx'):
@@ -69,10 +71,8 @@ if submit_button:
     
     st.success('Sugestão enviada com sucesso!')
 
-# Adiciona botão para baixar o arquivo Excel com senha
-st.subheader('Baixar Arquivo Excel')
-download_excel_with_password()
-
-# Adiciona botão para limpar o arquivo de sugestões
-if st.button('Limpar Arquivo de Sugestões'):
-    clear_excel_file()
+# Adiciona botão para baixar o arquivo Excel com senha e limpar o arquivo de sugestões
+st.subheader('Baixar ou Limpar Arquivo Excel')
+if download_excel_with_password():
+    if st.button('Limpar Arquivo de Sugestões'):
+        clear_excel_file()
