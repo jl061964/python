@@ -25,6 +25,12 @@ def download_excel_with_password(filename='sugestoes.xlsx'):
     elif password:
         st.error('Senha incorreta. Por favor, tente novamente.')
 
+# Função para limpar o arquivo de sugestões
+def clear_excel_file(filename='sugestoes.xlsx'):
+    df = pd.DataFrame(columns=['Nome', 'Cargo', 'Setor', 'Sugestão', 'Possível Melhoria', 'Custo Estimado'])
+    df.to_excel(filename, index=False)
+    st.write(f'Arquivo {filename} limpo com sucesso!')
+
 # Aplicativo Streamlit
 st.title('Sistema de Sugestões')
 
@@ -66,3 +72,7 @@ if submit_button:
 # Adiciona botão para baixar o arquivo Excel com senha
 st.subheader('Baixar Arquivo Excel')
 download_excel_with_password()
+
+# Adiciona botão para limpar o arquivo de sugestões
+if st.button('Limpar Arquivo de Sugestões'):
+    clear_excel_file()
