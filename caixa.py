@@ -16,6 +16,11 @@ def load_from_excel(filename='sugestoes.xlsx'):
     except FileNotFoundError:
         return []
 
+# Função para baixar o arquivo Excel
+def download_excel(filename='sugestoes.xlsx'):
+    with open(filename, 'rb') as f:
+        st.download_button('Baixar arquivo Excel', f, file_name=filename)
+
 # Aplicativo Streamlit
 st.title('Sistema de Sugestões')
 
@@ -53,3 +58,12 @@ if submit_button:
     save_to_excel(st.session_state.sugestoes)
     
     st.success('Sugestão enviada com sucesso!')
+
+# Exibe sugestões existentes (opcional)
+if st.session_state.sugestoes:
+    st.subheader('Sugestões Recebidas')
+    for sugestao in st.session_state.sugestoes:
+        st.write(sugestao)
+
+# Adiciona botão para baixar o arquivo Excel
+download_excel()
