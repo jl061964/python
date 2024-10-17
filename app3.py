@@ -38,7 +38,7 @@ def carregar_dados():
 
     vendas_credito_df.columns = [
         "Inativo","Nro.", "Empresa", "Cliente1", "Fantasia1", "Referência", "Vencimento1", "Vl.liquido1",
-        "TD", "Nr.docto", "Dt.pagto1", "Vl.pagamento1", "TP", "Nr.pagamento", "Conta", "Dt.Emissão1",
+        "TD", "Nr.docto", "Dt.pagto", "Vl.pagto", "TP", "Nr.pagamento", "Conta", "Dt.Emissão1",
         "Cobrança","Modelo", "Negociação","Duplicata", "Razão Social", "CNPJ/CPF", "PDD"
     ]
 
@@ -76,8 +76,14 @@ def main():
     vendas_cliente = vendas_credito_df[vendas_credito_df["Cliente1"] == cliente_nome].copy()
 
     # Converte as colunas de data em vendas a crédito
-    for coluna in ["Dt.pagto1", "Vencimento1"]:
+    for coluna in ["Dt.pagto", "Vencimento1"]:
         vendas_cliente[coluna] = pd.to_datetime(vendas_cliente[coluna], errors='coerce')
+
+    # Verifique se a coluna 'Vl.pagto' está presente
+    if 'Vl.pagto' not in vendas_cliente.columns:
+        st.error("A coluna 'Vl.pagto' não foi encontrada no DataFrame 'vendas_cliente'.")
+        st.write("Colunas disponíveis:", vendas_cliente.columns.tolist())
+        return
 
     hoje = pd.Timestamp.today()
 
@@ -112,7 +118,7 @@ def main():
     st.write(f"**Montante de Vencidos:** R$ {total_vencidos:,.2f} ({percentual_vencidos:.2f}% do total)")
     st.write(f"**Montante de A Vencer:** R$ {total_a_vencer:,.2f} ({percentual_a_vencer:.2f}% do total)")
 
-            # Cálculo do prazo médio de faturamento ponderado
+        # Cálculo do prazo médio de faturamento ponderado
     clientes_filtrados["Prazo"] = (clientes_filtrados["Vencimento"] - clientes_filtrados["Dt.Emissão"]).dt.days
     prazo_medio_ponderado = (clientes_filtrados["Prazo"] * clientes_filtrados["Vl.liquido"]).sum() / clientes_filtrados["Vl.liquido"].sum()
     st.write(f"**Prazo Médio de Faturamento (ponderado):** {prazo_medio_ponderado:.2f} dias")
@@ -144,7 +150,7 @@ def main():
 
     # Cálculo do CEI (Collection Effectiveness Index)
     total_vendas_credito = vendas_cliente["Vl.liquido1"].sum()
-    total_pagamentos_recebidos = vendas_cliente["Vl.pagamento"].sum()
+    total_pagamentos_recebidos = vendas_cliente["Vl.pagto"].sum()
     if total_vendas_credito > 0:
         CEI = (total_pagamentos_recebidos / total_vendas_credito) * 100
     else:
@@ -167,6 +173,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
