@@ -42,10 +42,6 @@ def carregar_dados():
         "Cobrança","Modelo", "Negociação","Duplicata", "Razão Social", "CNPJ/CPF", "PDD"
     ]
 
-    # Verifique se as colunas foram renomeadas corretamente
-    st.write("Colunas do DataFrame 'clientes_df':", clientes_df.columns.tolist())
-    st.write("Colunas do DataFrame 'vendas_credito_df':", vendas_credito_df.columns.tolist())
-
     # Cria uma nova coluna combinando "Cliente" e "Fantasia"
     clientes_df["Cliente_Fantasia"] = clientes_df.apply(lambda row: f"{row['Cliente ']} - {row['Fantasia']}", axis=1)
 
@@ -137,7 +133,7 @@ def main():
     else:
         faturamento_diario_medio = 0
 
-    # Cálculo do DSO
+        # Cálculo do DSO
     contas_receber_total = clientes_filtrados["Vl.liquido"].sum()
     if faturamento_diario_medio > 0:
         DSO = contas_receber_total / faturamento_diario_medio
@@ -171,6 +167,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
