@@ -38,7 +38,7 @@ def carregar_dados():
 
     vendas_credito_df.columns = [
         "Inativo","Nro.", "Empresa", "Cliente1", "Fantasia1", "Referência", "Vencimento1", "Vl.liquido1",
-        "TD", "Nr.docto", "Dt.pagto", "Vl.pagamento", "TP", "Nr.pagamento", "Conta", "Dt.Emissão1",
+        "TD", "Nr.docto", "Dt.pagto1", "Vl.pagamento1", "TP", "Nr.pagamento", "Conta", "Dt.Emissão1",
         "Cobrança","Modelo", "Negociação","Duplicata", "Razão Social", "CNPJ/CPF", "PDD"
     ]
 
@@ -76,7 +76,7 @@ def main():
     vendas_cliente = vendas_credito_df[vendas_credito_df["Cliente1"] == cliente_nome].copy()
 
     # Converte as colunas de data em vendas a crédito
-    for coluna in ["Dt.pagto", "Vencimento1"]:
+    for coluna in ["Dt.pagto1", "Vencimento1"]:
         vendas_cliente[coluna] = pd.to_datetime(vendas_cliente[coluna], errors='coerce')
 
     hoje = pd.Timestamp.today()
@@ -119,7 +119,7 @@ def main():
 
     # Cálculo do prazo médio de recebimento
     if 'Dt.pagto' in vendas_cliente.columns and 'Vencimento1' in vendas_cliente.columns and 'Vl.liquido1' in vendas_cliente.columns:
-        vendas_cliente['Dias Para Recebimento'] = (vendas_cliente['Dt.pagto'] - vendas_cliente['Vencimento1']).dt.days
+        vendas_cliente['Dias Para Recebimento'] = (vendas_cliente['Dt.pagto1'] - vendas_cliente['Vencimento1']).dt.days
         soma_valores_recebidos = vendas_cliente['Vl.liquido1'].sum()
         prazo_medio_recebimento = (vendas_cliente['Dias Para Recebimento'] * vendas_cliente['Vl.liquido1']).sum() / soma_valores_recebidos if soma_valores_recebidos > 0 else 0
         st.write(f"**Prazo Médio de Recebimento (ponderado):** {prazo_medio_recebimento:.2f} dias")
@@ -134,7 +134,7 @@ def main():
         faturamento_diario_medio = 0
 
     # Cálculo do DSO
-    contas_receber_total = clientes_filtrados["Vl.liquido"].sum()
+    contas_receber_total = clientes_filtrados["Vl.liquido1"].sum()
     if faturamento_diario_medio > 0:
         DSO = contas_receber_total / faturamento_diario_medio
     else:
@@ -144,7 +144,7 @@ def main():
 
     # Cálculo do CEI (Collection Effectiveness Index)
     total_vendas_credito = vendas_cliente["Vl.liquido1"].sum()
-    total_pagamentos_recebidos = vendas_cliente["Vl.pagamento"].sum()
+    total_pagamentos_recebidos = vendas_cliente["Vl.pagamento1"].sum()
     if total_vendas_credito > 0:
         CEI = (total_pagamentos_recebidos / total_vendas_credito) * 100
     else:
