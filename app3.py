@@ -129,9 +129,9 @@ def main():
     # Cálculo do faturamento diário médio (ADP)
     dias_no_periodo = (vendas_cliente["Dt.Emissão1"].max() - vendas_cliente["Dt.Emissão1"].min()).days
     if dias_no_periodo > 0:
-       faturamento_diario_medio = vendas_cliente["Vl.liquido1"].sum() / dias_no_periodo
+        faturamento_diario_medio = vendas_cliente["Vl.liquido1"].sum() / dias_no_periodo
     else:
-      faturamento_diario_medio = 0
+        faturamento_diario_medio = 0
 
     # Cálculo do DSO
     contas_receber_total = clientes_filtrados["Vl.liquido"].sum()
@@ -148,10 +148,9 @@ def main():
     if total_vendas_credito > 0:
         CEI = (total_pagamentos_recebidos / total_vendas_credito) * 100
     else:
-       CEI = 0
+        CEI = 0
 
     st.write(f"**CEI (Collection Effectiveness Index) para o cliente selecionado:** {CEI:.2f}%")
-
 
     # Gráfico de pizza para totais
     fig, ax = plt.subplots(figsize=(8, 5))
