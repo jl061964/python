@@ -20,7 +20,7 @@ def carregar_dados():
     baixar_arquivo_google_drive(url_vendas, caminho_vendas)
 
     # Verifique se os arquivos foram baixados corretamente
-    if not os.path.exists(caminho_clientes) or not os.path.exists(caminho_vendas):
+    if not os.path.exists(caminho_clientes) ou not os.path.exists(caminho_vendas):
         st.error("Erro ao baixar os arquivos. Verifique os URLs e tente novamente.")
         return None, None
 
@@ -38,9 +38,13 @@ def carregar_dados():
 
     vendas_credito_df.columns = [
         "Inativo","Nro.", "Empresa", "Cliente1", "Fantasia1", "Referência", "Vencimento1", "Vl.liquido1",
-        "TD", "Nr.docto", "Dt.pagto", "Vl.pagto", "TP", "Nr.pagamento", "Conta", "Dt.Emissão1",
+        "TD", "Nr.docto", "Dt.pagto", "Vl.pagto", "TP", "Nr.pagto", "Conta", "Dt.Emissão1",
         "Cobrança","Modelo", "Negociação","Duplicata", "Razão Social", "CNPJ/CPF", "PDD"
     ]
+
+    # Verifique se as colunas foram renomeadas corretamente
+    st.write("Colunas do DataFrame 'clientes_df':", clientes_df.columns.tolist())
+    st.write("Colunas do DataFrame 'vendas_credito_df':", vendas_credito_df.columns.tolist())
 
     # Cria uma nova coluna combinando "Cliente" e "Fantasia"
     clientes_df["Cliente_Fantasia"] = clientes_df.apply(lambda row: f"{row['Cliente ']} - {row['Fantasia']}", axis=1)
@@ -79,12 +83,6 @@ def main():
     for coluna in ["Dt.pagto", "Vencimento1"]:
         vendas_cliente[coluna] = pd.to_datetime(vendas_cliente[coluna], errors='coerce')
 
-    # Verifique se a coluna 'Vl.pagto' está presente
-    if 'Vl.pagto' not in vendas_cliente.columns:
-        st.error("A coluna 'Vl.pagto' não foi encontrada no DataFrame 'vendas_cliente'.")
-        st.write("Colunas disponíveis:", vendas_cliente.columns.tolist())
-        return
-
     hoje = pd.Timestamp.today()
 
     # Filtra valores vencidos e a vencer
@@ -111,14 +109,15 @@ def main():
     else:
         st.info("Títulos vencidos e títulos a vencer são iguais.")
 
-    # Cálculo dos percentuais
+
+        # Cálculo dos percentuais
     percentual_vencidos = (total_vencidos / total_geral * 100) if total_geral > 0 else 0
     percentual_a_vencer = (total_a_vencer / total_geral * 100) if total_geral > 0 else 0
 
     st.write(f"**Montante de Vencidos:** R$ {total_vencidos:,.2f} ({percentual_vencidos:.2f}% do total)")
     st.write(f"**Montante de A Vencer:** R$ {total_a_vencer:,.2f} ({percentual_a_vencer:.2f}% do total)")
 
-        # Cálculo do prazo médio de faturamento ponderado
+    # Cálculo do prazo médio de faturamento ponderado
     clientes_filtrados["Prazo"] = (clientes_filtrados["Vencimento"] - clientes_filtrados["Dt.Emissão"]).dt.days
     prazo_medio_ponderado = (clientes_filtrados["Prazo"] * clientes_filtrados["Vl.liquido"]).sum() / clientes_filtrados["Vl.liquido"].sum()
     st.write(f"**Prazo Médio de Faturamento (ponderado):** {prazo_medio_ponderado:.2f} dias")
