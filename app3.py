@@ -20,7 +20,7 @@ def carregar_dados():
     baixar_arquivo_google_drive(url_vendas, caminho_vendas)
 
     # Verifique se os arquivos foram baixados corretamente
-    if not os.path.exists(caminho_clientes) ou not os.path.exists(caminho_vendas):
+    if not os.path.exists(caminho_clientes) or not os.path.exists(caminho_vendas):
         st.error("Erro ao baixar os arquivos. Verifique os URLs e tente novamente.")
         return None, None
 
@@ -109,8 +109,7 @@ def main():
     else:
         st.info("Títulos vencidos e títulos a vencer são iguais.")
 
-
-        # Cálculo dos percentuais
+    # Cálculo dos percentuais
     percentual_vencidos = (total_vencidos / total_geral * 100) if total_geral > 0 else 0
     percentual_a_vencer = (total_a_vencer / total_geral * 100) if total_geral > 0 else 0
 
