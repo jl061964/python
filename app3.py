@@ -112,7 +112,7 @@ def main():
     st.write(f"**Montante de Vencidos:** R$ {total_vencidos:,.2f} ({percentual_vencidos:.2f}% do total)")
     st.write(f"**Montante de A Vencer:** R$ {total_a_vencer:,.2f} ({percentual_a_vencer:.2f}% do total)")
 
-    # Cálculo do prazo médio de faturamento ponderado
+        # Cálculo do prazo médio de faturamento ponderado
     clientes_filtrados["Prazo"] = (clientes_filtrados["Vencimento"] - clientes_filtrados["Dt.Emissão"]).dt.days
     prazo_medio_ponderado = (clientes_filtrados["Prazo"] * clientes_filtrados["Vl.liquido"]).sum() / clientes_filtrados["Vl.liquido"].sum()
     st.write(f"**Prazo Médio de Faturamento (ponderado):** {prazo_medio_ponderado:.2f} dias")
@@ -167,6 +167,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
