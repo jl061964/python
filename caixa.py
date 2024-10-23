@@ -29,7 +29,7 @@ def download_excel_with_password(filename='sugestoes.xlsx'):
 
 # Função para limpar o arquivo de sugestões
 def clear_excel_file(filename='sugestoes.xlsx'):
-    df = pd.DataFrame(columns=['Nome', 'Cargo', 'Setor', 'Sugestão', 'Possível Melhoria', 'Custo Estimado', 'Economia Prevista(Se não for quantificavel, descrever beneficios para a empresa.)'])
+    df = pd.DataFrame(columns=['Nome', 'função', 'Setor', 'Sugestão', 'Possível Melhoria', 'Custo Estimado', 'Economia Prevista(Se não for quantificavel, descrever beneficios para a empresa.)'])
     df.to_excel(filename, index=False)
     st.write(f'Arquivo {filename} limpo com sucesso!')
 
@@ -46,7 +46,7 @@ if 'sugestoes' not in st.session_state:
 # Formulário para coletar dados do usuário
 with st.form(key='sugestao_form'):
     nome = st.text_input('Nome')
-    cargo = st.text_input('Cargo')
+    funcao = st.text_input('Função')
     setor = st.text_input('Setor')
     sugestao = st.text_area('Sugestão')
     melhoria = st.text_area('Possível Melhoria')
@@ -59,7 +59,7 @@ with st.form(key='sugestao_form'):
 if submit_button:
     nova_sugestao = {
         'Nome': nome,
-        'Cargo': cargo,
+        'Função': funcao,
         'Setor': setor,
         'Sugestão': sugestao,
         'Possível Melhoria': melhoria,
