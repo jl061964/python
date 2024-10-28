@@ -176,7 +176,18 @@ def main():
     clientes_filtrados["Vl.liquido"].plot(kind='line', title='Tendência de Valores Vencidos e a Vencer')
     st.pyplot(plt)
 
+    # Análise de Desempenho
+    st.subheader("Análise de Desempenho")
+    desempenho_anterior = clientes_filtrados["Vl.liquido"].sum()
+    desempenho_atual = vendas_cliente["Vl.liquido1"].sum()
+    if desempenho_anterior > 0:
+        variacao_desempenho = ((desempenho_atual - desempenho_anterior) / desempenho_anterior) * 100
+    else:
+        variacao_desempenho = 0
+    st.write(f"**Variação de Desempenho:** {variacao_desempenho:.2f}%")
+
     
+
 
 if __name__ == "__main__":
     main()
