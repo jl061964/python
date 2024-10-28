@@ -156,6 +156,15 @@ def main():
     st.subheader("Análise de Crédito")
     turnover_ratio = total_vendas_credito / contas_receber_total if contas_receber_total > 0 else 0
     st.write(f"**Índice de Rotatividade de Contas a Receber:** {turnover_ratio:.2f}")
+
+    # Comentário sobre o Índice de Rotatividade
+    if turnover_ratio > 10:
+       st.write("Comentário: O índice de rotatividade está alto, indicando que a empresa está eficiente em cobrar suas contas a receber.")
+    elif turnover_ratio < 5:
+       st.write("Comentário: O índice de rotatividade está baixo, sugerindo possíveis problemas na cobrança ou clientes com dificuldades financeiras.")
+    else:
+       st.write("Comentário: O índice de rotatividade está dentro da média, indicando uma eficiência razoável na cobrança das contas a receber.")
+
     
     # Gráfico de pizza para totais
     fig, ax = plt.subplots(figsize=(8, 5))
@@ -189,16 +198,23 @@ def main():
     desempenho_atual = vendas_cliente["Vl.liquido1"].sum()
     periodo_anterior = f"{clientes_filtrados['Dt.Emissão'].min().date()} a {clientes_filtrados['Dt.Emissão'].max().date()}"
     periodo_atual = f"{vendas_cliente['Dt.Emissão1'].min().date()} a {vendas_cliente['Dt.Emissão1'].max().date()}"
-    if desempenho_anterior > 0:
-        variacao_desempenho = ((desempenho_atual - desempenho_anterior) / desempenho_anterior) * 100
-    else:
-        variacao_desempenho = 0
-    st.write(f"**Período Anterior:** {periodo_anterior}")
-    st.write(f"**Total Anterior:** R$ {desempenho_anterior:,.2f}")
-    st.write(f"**Período Atual:** {periodo_atual}")
-    st.write(f"**Total Atual:** R$ {desempenho_atual:,.2f}")
-    st.write(f"**Variação de Desempenho:** {variacao_desempenho:.2f}%")
+   if desempenho_anterior > 0:
+       variacao_desempenho = ((desempenho_atual - desempenho_anterior) / desempenho_anterior) * 100
+   else:
+       variacao_desempenho = 0
+   st.write(f"**Período Anterior:** {periodo_anterior}")
+   st.write(f"**Total Anterior:** R$ {desempenho_anterior:,.2f}")
+   st.write(f"**Período Atual:** {periodo_atual}")
+   st.write(f"**Total Atual:** R$ {desempenho_atual:,.2f}")
+   st.write(f"**Variação de Desempenho:** {variacao_desempenho:.2f}%")
 
+   # Comentário sobre a Variação de Desempenho
+   if variacao_desempenho > 0:
+      st.write("Comentário: O desempenho melhorou em relação ao período anterior, indicando um crescimento nas vendas ou recebimentos.")
+   elif variacao_desempenho < 0:
+      st.write("Comentário: O desempenho piorou em relação ao período anterior, sugerindo uma queda nas vendas ou recebimentos.")
+   else:
+      st.write("Comentário: O desempenho permaneceu estável em relação ao período anterior.")
 
     
 
