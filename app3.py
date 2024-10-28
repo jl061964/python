@@ -72,7 +72,7 @@ def main():
         clientes_filtrados[coluna] = pd.to_datetime(clientes_filtrados[coluna], errors='coerce')
 
     # Filtra os dados de vendas a crédito para o cliente selecionado
-    cliente_nome = clientes_filtrados["Cliente "].iloc
+    cliente_nome = clientes_filtrados["Cliente "].iloc[0]
     vendas_cliente = vendas_credito_df[vendas_credito_df["Cliente1"] == cliente_nome].copy()
 
     # Converte as colunas de data em vendas a crédito
