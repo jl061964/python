@@ -198,23 +198,23 @@ def main():
     desempenho_atual = vendas_cliente["Vl.liquido1"].sum()
     periodo_anterior = f"{clientes_filtrados['Dt.Emissão'].min().date()} a {clientes_filtrados['Dt.Emissão'].max().date()}"
     periodo_atual = f"{vendas_cliente['Dt.Emissão1'].min().date()} a {vendas_cliente['Dt.Emissão1'].max().date()}"
-   if desempenho_anterior > 0:
+    if desempenho_anterior > 0:
        variacao_desempenho = ((desempenho_atual - desempenho_anterior) / desempenho_anterior) * 100
-   else:
+    else:
        variacao_desempenho = 0
-   st.write(f"**Período Anterior:** {periodo_anterior}")
-   st.write(f"**Total Anterior:** R$ {desempenho_anterior:,.2f}")
-   st.write(f"**Período Atual:** {periodo_atual}")
-   st.write(f"**Total Atual:** R$ {desempenho_atual:,.2f}")
-   st.write(f"**Variação de Desempenho:** {variacao_desempenho:.2f}%")
+    st.write(f"**Período Anterior:** {periodo_anterior}")
+    st.write(f"**Total Anterior:** R$ {desempenho_anterior:,.2f}")
+    st.write(f"**Período Atual:** {periodo_atual}")
+    st.write(f"**Total Atual:** R$ {desempenho_atual:,.2f}")
+    st.write(f"**Variação de Desempenho:** {variacao_desempenho:.2f}%")
 
-   # Comentário sobre a Variação de Desempenho
-   if variacao_desempenho > 0:
-      st.write("Comentário: O desempenho melhorou em relação ao período anterior, indicando um crescimento nas vendas ou recebimentos.")
-   elif variacao_desempenho < 0:
-      st.write("Comentário: O desempenho piorou em relação ao período anterior, sugerindo uma queda nas vendas ou recebimentos.")
-   else:
-      st.write("Comentário: O desempenho permaneceu estável em relação ao período anterior.")
+    # Comentário sobre a Variação de Desempenho
+    if variacao_desempenho > 0:
+       st.write("Comentário: O desempenho melhorou em relação ao período anterior, indicando um crescimento nas vendas ou recebimentos.")
+    elif variacao_desempenho < 0:
+       st.write("Comentário: O desempenho piorou em relação ao período anterior, sugerindo uma queda nas vendas ou recebimentos.")
+    else:
+       st.write("Comentário: O desempenho permaneceu estável em relação ao período anterior.")
 
     
 
