@@ -217,8 +217,30 @@ def main():
     else:
        st.write("Comentário: O desempenho permaneceu estável em relação ao período anterior.")
 
-    
+    # Análise de Inadimplência
+    st.subheader("Análise de Inadimplência")
+    inadimplencia = total_vencidos / total_geral * 100 if total_geral > 0 else 0
+    st.write(f"**Taxa de Inadimplência:** {inadimplencia:.2f}%")
 
+    # Comentário sobre a Taxa de Inadimplência
+    if inadimplencia > 20:
+       st.write("Comentário: A taxa de inadimplência está alta, indicando que muitos clientes estão atrasados nos pagamentos.")
+    elif inadimplencia < 5:
+       st.write("Comentário: A taxa de inadimplência está baixa, indicando que a maioria dos clientes está pagando em dia.")
+    else:
+       st.write("Comentário: A taxa de inadimplência está dentro de um intervalo aceitável.")
+
+    # Análise de Sazonalidade
+    st.subheader("Análise de Sazonalidade")
+    vendas_cliente['Mês'] = vendas_cliente['Dt.Emissão1'].dt.month
+    sazonalidade = vendas_cliente.groupby('Mês')['Vl.liquido1'].sum()
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sazonalidade.plot(kind='bar', ax=ax)
+    ax.set_title('Sazonalidade das Vendas')
+    ax.set_xlabel('Mês')
+    ax.set_ylabel('Valor das Vendas (R$)')
+    st.pyplot(fig)
 
 if __name__ == "__main__":
     main()
