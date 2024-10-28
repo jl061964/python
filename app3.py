@@ -172,9 +172,16 @@ def main():
 
     # Análise de Tendências
     st.subheader("Análise de Tendências")
+    fig, ax = plt.subplots(figsize=(10, 6))
     clientes_filtrados.set_index("Vencimento", inplace=True)
-    clientes_filtrados["Vl.liquido"].plot(kind='line', title='Tendência de Valores Vencidos e a Vencer')
-    st.pyplot(plt)
+    clientes_filtrados["Vl.liquido"].plot(kind='line', ax=ax, label='Valores Vencidos')
+    valores_a_vencer.set_index("Vencimento", inplace=True)
+    valores_a_vencer["Vl.liquido"].plot(kind='line', ax=ax, label='Valores a Vencer')
+    ax.set_title('Tendência de Valores Vencidos e a Vencer')
+    ax.set_xlabel('Data de Vencimento')
+    ax.set_ylabel('Valor (R$)')
+    ax.legend()
+    st.pyplot(fig)
 
     # Análise de Desempenho
     st.subheader("Análise de Desempenho")
