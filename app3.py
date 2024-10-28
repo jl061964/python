@@ -193,6 +193,9 @@ def main():
     ax.legend()
     st.pyplot(fig)
 
+    # Comentário sobre a Análise de Tendências
+    st.write("Comentário: A análise de tendências mostra como os valores vencidos e a vencer variam ao longo do tempo. Um aumento nos valores vencidos pode indicar problemas na cobrança, enquanto um aumento nos valores a vencer pode sugerir um crescimento nas vendas a crédito.")
+   
     # Análise de Desempenho
     st.subheader("Análise de Desempenho")
     desempenho_anterior = clientes_filtrados["Vl.liquido"].sum()
@@ -241,6 +244,9 @@ def main():
     ax.set_xlabel('Mês')
     ax.set_ylabel('Valor das Vendas (R$)')
     st.pyplot(fig)
+
+    # Comentário sobre a Análise de Sazonalidade
+    st.write("Comentário: A análise de sazonalidade ajuda a identificar padrões de vendas ao longo do ano. Picos em determinados meses podem indicar sazonalidade nas vendas, o que pode ser útil para planejamento de estoque e estratégias de marketing.")
 
 if __name__ == "__main__":
     main()
