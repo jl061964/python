@@ -152,6 +152,11 @@ def main():
 
     st.write(f"**CEI (Collection Effectiveness Index) para o cliente selecionado:** {CEI:.2f}%")
 
+    # Análise de Crédito
+    st.subheader("Análise de Crédito")
+    turnover_ratio = total_vendas_credito / contas_receber_total if contas_receber_total > 0 else 0
+    st.write(f"**Índice de Rotatividade de Contas a Receber:** {turnover_ratio:.2f}")
+    
     # Gráfico de pizza para totais
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.pie(
@@ -171,20 +176,7 @@ def main():
     clientes_filtrados["Vl.liquido"].plot(kind='line', title='Tendência de Valores Vencidos e a Vencer')
     st.pyplot(plt)
 
-    # Alertas e Notificações
-    st.subheader("Alertas e Notificações")
-    if total_vencidos > total_a_vencer:
-       st.error("Atenção: Títulos vencidos são maiores que títulos a vencer!")
-    elif total_vencidos < total_a_vencer:
-      st.success("Títulos a vencer são maiores que títulos vencidos.")
-    else:
-      st.info("Títulos vencidos e títulos a vencer são iguais.")
-
-    # Análise de Crédito
-    st.subheader("Análise de Crédito")
-    turnover_ratio = total_vendas_credito / contas_receber_total if contas_receber_total > 0 else 0
-    st.write(f"**Índice de Rotatividade de Contas a Receber:** {turnover_ratio:.2f}")
-
+    
 
 if __name__ == "__main__":
     main()
