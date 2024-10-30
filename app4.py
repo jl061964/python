@@ -128,6 +128,8 @@ def main():
     st.write(f"**Total Geral:** R$ {total_geral:,.2f}")
     st.write(f"**Categoria de Faturamento:** {categoria_faturamento}")
 
+    # Chama a função para exibir o gráfico tipo régua
+    grafico_regua_faturamento(total_geral)
         
     # Alertas baseados nos totais
     if total_vencidos > total_a_vencer:
