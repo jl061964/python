@@ -69,8 +69,9 @@ def grafico_regua_faturamento(total_geral):
     ax.plot(total_geral, 1, 'ro')  # Marca a posição do cliente
     ax.set_xlim(0, 1500000)  # Ajustei o limite máximo para corresponder à nova posição
     ax.set_xticks(posicoes)
-    ax.set_xticklabels(categorias)
+    ax.set_xticklabels(categorias, rotation=45, ha='right')  # Rotaciona os rótulos em 45 graus
     ax.set_yticks([])
+    plt.tight_layout()  # Ajusta o layout para evitar sobreposição
     st.pyplot(fig)
 
 
