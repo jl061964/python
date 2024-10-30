@@ -61,18 +61,18 @@ def categorizar_cliente_por_faturamento(faturamento):
     else:
         return 'Acima de 1 milhão'
         
-# Gráfico tipo régua para posicionar o cliente na categoria de faturamento
 def grafico_regua_faturamento(total_geral):
     fig, ax = plt.subplots(figsize=(10, 2))
     categorias = ['Até 10 mil', 'De 11 mil a 50 mil', 'De 51 mil a 100 mil', 'De 101 mil a 150 mil', 'De 151 mil até 1 milhão', 'Acima de 1 milhão']
-    posicoes = [10000, 50000, 100000, 150000, 1000000]
-    ax.hlines(1, xmin=0, xmax=1000000, color='gray', linewidth=5)
+    posicoes = [10000, 50000, 100000, 150000, 1000000, 1500000]  # Adicionei uma posição extra para corresponder ao número de categorias
+    ax.hlines(1, xmin=0, xmax=1500000, color='gray', linewidth=5)  # Ajustei o limite máximo para corresponder à nova posição
     ax.plot(total_geral, 1, 'ro')  # Marca a posição do cliente
-    ax.set_xlim(0, 1000000)
+    ax.set_xlim(0, 1500000)  # Ajustei o limite máximo para corresponder à nova posição
     ax.set_xticks(posicoes)
     ax.set_xticklabels(categorias)
     ax.set_yticks([])
     st.pyplot(fig)
+
 
 def main():
     st.title("Análise de Clientes")
