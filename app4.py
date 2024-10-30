@@ -93,6 +93,9 @@ def main():
     if escolha == "Selecione um cliente":
         st.warning("Por favor, selecione um cliente.")
         return
+        
+    # Exibe a identificação do cliente em análise logo abaixo do título
+    st.subheader(f"Cliente em Análise: {escolha}")
 
     # Filtra os dados com base na escolha do usuário
     clientes_filtrados = clientes_df[clientes_df["Cliente_Fantasia"] == escolha].copy()
