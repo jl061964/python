@@ -72,7 +72,7 @@ def grafico_regua_faturamento(total_geral):
     ax.set_xticks(posicoes)
     ax.set_xticklabels(categorias)
     ax.set_yticks([])
-    st.pyplot(fig) 
+    st.pyplot(fig)
     
 def main():
     st.title("Análise de Clientes")
@@ -128,6 +128,9 @@ def main():
     st.write(f"**Total Geral:** R$ {total_geral:,.2f}")
     st.write(f"**Categoria de Faturamento:** {categoria_faturamento}")
 
+    # Chama a função para exibir o gráfico tipo régua
+    grafico_regua_faturamento(total_geral)
+    
     # Alertas baseados nos totais
     if total_vencidos > total_a_vencer:
         st.error("Atenção: Títulos vencidos são maiores que títulos a vencer!")
