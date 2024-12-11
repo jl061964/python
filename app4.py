@@ -10,9 +10,9 @@ def baixar_arquivo_google_drive(url, caminho_local):
 
 def carregar_dados():
     # Defina o URL do Google Drive e o caminho local
-    url_clientes = 'https://drive.google.com/uc?id=1DQ5iUlFFIKcz2GAQ6Loh_4HwmCqQOqnc&export=download'
+    url_clientes = 'https://drive.google.com/uc?id=1UI8LIqOWs_Fxi7vkzyoGgyfoDoX9aaFD&export=download'
     caminho_clientes = 'estatistica_clientes.xlsx'
-    url_vendas = 'https://drive.google.com/uc?id=10bwwNx8r8MzqJI5BtYSnfKpcLH4yglev&export=download'
+    url_vendas = 'https://drive.google.com/uc?id=13ck0dTs9VxVA7zvkpWZGrOYl283tBAcm&export=download'
     caminho_vendas = 'Vendas_Credito.xlsx'
     
     # Baixe os arquivos
